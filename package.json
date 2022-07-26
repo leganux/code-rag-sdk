@@ -1,0 +1,30 @@
+{
+  "name": "code-rag-sdk",
+  "version": "1.0.0",
+  "description": "An amazing  SDK connector for APIed-Piper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leganux/code-rag-sdk.git"
+  },
+  "keywords": [
+    "sdk",
+    "apied-piper",
+    "leganux",
+    "connector",
+    "api",
+    "minute",
+    "generator",
+    "crud",
+    "easy"
+  ],
+  "author": "Angel Erick Cruz Olivera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leganux/code-rag-sdk/issues"
+  },
+  "homepage": "https://github.com/leganux/code-rag-sdk#readme"
+}
