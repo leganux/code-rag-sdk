@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="index.js"></script>
+<script>
+    let options = {
+
+    }
+
+
+    let api_rest = new codeRagSdk('http://localhost:3000/', 'apiv2/', options)
+
+    let main = async function () {
+        // descubre el servidor de apied-piper y valida si funciona correctamente
+        await api_rest.discover()
+        let login = await api_rest.login('Meinertzhagens-Haversack', 'Jared')
+        console.log(login)
+        let access = await api_rest.resourceAccess()
+        console.log(access)
+
+
+    }
+
+
+    main()
+
+
+</script>
+</body>
+</html>
