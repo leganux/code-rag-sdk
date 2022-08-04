@@ -10,20 +10,21 @@
 <body>
 <script src="index.js"></script>
 <script>
-    let options = {
+    let options = {}
 
-    }
+    let uri = 'http://localhost:3000/' //Base uri of APIed-Piper project
+    let base_path = 'apiv2/' //base path of APIed-Piper project
 
-
-    let api_rest = new codeRagSdk('http://localhost:3000/', 'apiv2/', options)
+    let api_rest = new codeRagSdk(uri, base_path, options)
 
     let main = async function () {
         // descubre el servidor de apied-piper y valida si funciona correctamente
         await api_rest.discover()
+
+
         let login = await api_rest.login('Meinertzhagens-Haversack', 'Jared')
-        console.log(login)
+
         let access = await api_rest.resourceAccess()
-        console.log(access)
 
 
     }

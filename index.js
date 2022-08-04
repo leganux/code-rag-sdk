@@ -32,16 +32,6 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
     this.resource = false
 
 
-    let isObj = function (a) {
-        if ((!!a) && (a.constructor === Object)) {
-            return true;
-        }
-        return false;
-    };
-    let _st = function (z, g) {
-        return "" + (g != "" ? "[" : "") + z + (g != "" ? "]" : "");
-    };
-
     this.parseQuery = function (params) {
         let result = '';
 
@@ -80,7 +70,10 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
         }
 
         let url = el.furi + path + parsedQuery
-        console.log('URL', url)
+        if (el?.options?.logRequest) {
+            console.log('CODE-RAG-SDK:', method, url)
+        }
+
 
         try {
             if (el?.options?.engine == 'axios') {
@@ -183,6 +176,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             throw e
         }
     }
+
     this.discover = async function () {
         let el = this
         try {
@@ -193,6 +187,17 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
                 el.routes = disc?.data?.routes
             }
             el.hasBeenDiscovered = true
+
+            try {
+                if (localStorage.getItem('code-rag-token')) {
+                    el.token = localStorage.getItem('code-rag-token')
+                    el.presentAuth = true
+                }
+            } catch (e) {
+
+            }
+
+
             return disc?.data
         } catch (e) {
             console.error(e)
@@ -201,7 +206,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
 
 
     }
-    this.login = async function (password = '', user = '', saveInLocalStorage = false) {
+    this.login = async function (password = '', user = '', saveInLocalStorage = true) {
         let el = this
         let method = 'POST'
         try {
@@ -224,7 +229,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
         }
 
     }
-    this.logout = async function (removeFromLocalStorage = false) {
+    this.logout = async function (removeFromLocalStorage = true) {
         let el = this
         el.token = 'Bearer NONE'
         if (removeFromLocalStorage) {
