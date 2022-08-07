@@ -30,6 +30,13 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
     this.hasBeenDiscovered = false
     this.presentAuth = false
     this.resource = false
+    this.f_error = async function (e) {
+        console.error('An error has been occurred', e)
+    }
+
+    if (options.f_error && typeof options.f_error == 'function') {
+        this.f_error = options.f_error
+    }
 
 
     this.parseQuery = function (params) {
@@ -172,7 +179,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             }
 
         } catch (e) {
-            console.error(e)
+            await el.f_error(e)
             throw e
         }
     }
@@ -197,15 +204,22 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
 
             }
 
-
             return disc?.data
         } catch (e) {
-            console.error(e)
-            return e.message
+            throw  e
         }
-
-
     }
+    this.stats = async function () {
+        let el = this
+        try {
+            let STATS = await el.executor('GET', undefined, 'STATS', undefined, undefined)
+            return STATS?.data
+        } catch (e) {
+            throw e
+        }
+    }
+
+
     this.login = async function (password = '', user = '', saveInLocalStorage = true) {
         let el = this
         let method = 'POST'
@@ -224,8 +238,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             }
             return resp?.data
         } catch (e) {
-            console.error(e)
-            return e.message
+            throw e
         }
 
     }
@@ -271,7 +284,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, body, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -286,7 +299,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, body, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -301,7 +314,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, undefined, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -316,7 +329,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, undefined, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -331,7 +344,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource + '/' + id, undefined, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -346,7 +359,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, body, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -361,7 +374,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource, body, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
     }
@@ -376,7 +389,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             let resp = await el.executor(method, undefined, el.resource + '/' + id, body, query)
             return resp.data
         } catch (e) {
-            console.error(e)
+
             throw e
         }
 
@@ -390,7 +403,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
         }
         try {
             let resp = await el.executor(method, undefined, el.resource + '/' + id, body, query)
-            return resp.data
+
         } catch (e) {
             console.error(e)
             throw e
@@ -414,7 +427,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
                 },
             }
         } catch (e) {
-            console.error(e)
+
             throw e
         }
 

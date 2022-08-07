@@ -5,7 +5,7 @@
 
 </p>
 
-An amazing SDK connector client for APIed-Piper. 
+An amazing SDK connector client for APIed-Piper.
 
 If you want to install APIed-Piper visit
 <a href="https://www.npmjs.com/package/apied-piper" target="_blank">npm APIed-Piper docs</a>
@@ -40,8 +40,13 @@ npm install code-rag-sdk
 
 ```javascript
 
+let f_error = async function (e) {
+    console.error('An error has been occurred', e)
+}
+
 let options = {
-    engine: "axios" // defualt fetch, please usae axios if you execute from node
+    engine: "axios", // defualt fetch, please usae axios if you execute from node
+    f_error: f_error // default request function in case of  HTTP error
 }
 
 /** Only NodeJS */
@@ -91,6 +96,14 @@ This method returns the allowed resource access configured in APIed-Piper
 
 ```javascript
 let access = await api_rest.resourceAccess()
+```
+
+*Stats*
+
+This method returns the server info and count model from server of APIed-Piper extend config
+
+```javascript
+let access = await api_rest.stats()
 ```
 
 *setResource*
@@ -161,8 +174,8 @@ let data = await api_rest.getOneWhere({query})
 This method allows you to get one element from a resource
 
 * params
-  * id: id of an element
-  * query: {some options to see which fields return where and populates }
+    * id: id of an element
+    * query: {some options to see which fields return where and populates }
 
 ```javascript
 let data = await api_rest.getOneById(id, {query})
@@ -170,11 +183,11 @@ let data = await api_rest.getOneById(id, {query})
 
 *findUpdateOrCreate*
 
-This method allows you to get one element  and update or create if not exists
+This method allows you to get one element and update or create if not exists
 
 * params
-  * body: element to create
-  * query: {some options to see which fields return where and populates }
+    * body: element to create
+    * query: {some options to see which fields return where and populates }
 
 ```javascript
 let data = await api_rest.findUpdateOrCreate({object}, {query})
@@ -182,11 +195,11 @@ let data = await api_rest.findUpdateOrCreate({object}, {query})
 
 *findUpdate*
 
-This method allows you to get one element  and update but not create if not exists
+This method allows you to get one element and update but not create if not exists
 
 * params
-  * body: element to create
-  * query: {some options to see which fields return where and populates }
+    * body: element to create
+    * query: {some options to see which fields return where and populates }
 
 ```javascript
 let data = await api_rest.findUpdate({object}, {query})
@@ -194,36 +207,37 @@ let data = await api_rest.findUpdate({object}, {query})
 
 *updateById*
 
-This method allows you to get one element  by id and update 
+This method allows you to get one element by id and update
 
 * params
-  * id: element ide to find
-  * body: fields to edit
-  * query: {some options to see which fields return where and populates }
-  
+    * id: element ide to find
+    * body: fields to edit
+    * query: {some options to see which fields return where and populates }
+
 ```javascript
-let data = await api_rest.updateById(id,{object}, {query})
+let data = await api_rest.updateById(id, {object}, {query})
 ```
 
 *findIdAndDelete*
 
-This method allows you to delete one element  by id 
+This method allows you to delete one element by id
 
 * params
-  * id: element ide to find
-  * query: {some options to see which fields return where and populates }
-  
+    * id: element ide to find
+    * query: {some options to see which fields return where and populates }
+
 ```javascript
 let data = await api_rest.findIdAndDelete(ids, {query})
 ```
+
 *datatableAJAX*
 
 This method allows you to get the config for ajax datatable
 
 * params
-  * id: element ide to find
-  * query: {some options to see which fields return where and populates }
-  
+    * id: element ide to find
+    * query: {some options to see which fields return where and populates }
+
 ```javascript
 let data = await api_rest.datatableAJAX()
 ```
