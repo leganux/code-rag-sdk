@@ -221,7 +221,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
         let el = this
         try {
             let STATS = await el.executor('GET', undefined, 'STATS', undefined, undefined)
-            return STATS?.data
+            return STATS
         } catch (e) {
             throw e
         }
@@ -404,7 +404,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
     }
     this.findIdAndDelete = async function (id = '', body = {}, query = {}) {
         let el = this
-        let method = 'PUT'
+        let method = 'DELETE'
         if (!el.resource) {
             throw new Error('Resource not selected')
             return
