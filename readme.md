@@ -82,6 +82,54 @@ let login = await api_rest.login(password, user, allow_save_localstorage);
 
 ```
 
+*verify*
+
+This method allows you verify login and set in local storage the user data
+
+```javascript
+let token = '0aidkjw9823ewajdw9832ebjdskndsjke93oue93.....'
+
+let verify = await api_rest.verify(token); //will take from localstorage
+```
+
+*Register*
+
+This method allows you to create new user
+
+```javascript
+let user = {
+    user: 'erick',
+    pass: 'sZon03939jjd$%',
+    email: 's@mail.com'
+}
+
+let role = 'User'
+let register = await api_rest.register(role, user); //will take from localstorage
+```
+
+*Forgot Password*
+
+This method allows you to send mail for recovery password
+
+```javascript
+let email = 's@mail.com'
+
+let forgotPassword = await api_rest.forgotPassword(user); 
+```
+
+*New Password*
+
+This method allows you assign new password after email
+
+```javascript
+let email = 's@mail.com'
+let password = 'sZon03939jjd$%'
+let password2 = 'sZon03939jjd$%'
+let ChangeCode = '9832ye9ndw903urwnsdlk390' // you can find this in the email you recieve
+
+let forgotPassword = await api_rest.forgotPassword(email, password, password2, ChangeCode); 
+```
+
 *logout*
 
 This method remove config of login
