@@ -8,7 +8,7 @@ try {
 
 let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/", options = {}) {
     console.log(`
-    Welcome to v1.0.8
+    Welcome to v1.0.9
          ____ ____ ____ ____ ____ ____ ____ ____ 
          ||C |||O |||D |||E |||- |||R |||A |||G ||  == SDK ==
          ||__|||__|||__|||__|||__|||__|||__|||__||
@@ -437,7 +437,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             return
         }
         try {
-            let resp = await el.executor(method, undefined, el.resource, body, query)
+            let resp = await el.executor(method, undefined, el.resource + '/many', body, query)
             return resp
         } catch (e) {
 
@@ -467,7 +467,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             return
         }
         try {
-            let resp = await el.executor(method, undefined, el.resource, undefined, query)
+            let resp = await el.executor(method, undefined, el.resource + '/one', undefined, query)
             return resp
         } catch (e) {
 
@@ -497,7 +497,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             return
         }
         try {
-            let resp = await el.executor(method, undefined, el.resource, body, query)
+            let resp = await el.executor(method, undefined, el.resource + '/find_update_or_create', body, query)
             return resp
         } catch (e) {
 
@@ -512,7 +512,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             return
         }
         try {
-            let resp = await el.executor(method, undefined, el.resource, body, query)
+            let resp = await el.executor(method, undefined, el.resource + '/find_where_and_update', body, query)
             return resp
         } catch (e) {
 
