@@ -8,7 +8,7 @@ try {
 
 let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/", options = {}) {
     console.log(`
-    Welcome to v1.0.9
+    Welcome to v1.1.0
          ____ ____ ____ ____ ____ ____ ____ ____ 
          ||C |||O |||D |||E |||- |||R |||A |||G ||  == SDK ==
          ||__|||__|||__|||__|||__|||__|||__|||__||
@@ -553,7 +553,7 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
     }
     this.datatableAJAX = async function () {
         let el = this
-        let method = 'DELETE'
+
         if (!el.resource) {
             throw new Error('Resource not selected')
             return
@@ -562,6 +562,39 @@ let codeRagSdk = function (host_uri = 'http://localhost:3000/', api_base = "api/
             return {
                 url: el.furi + el.resource + '/datatable/?populate=true',
                 type: "POST",
+                "dataType": 'json',
+                "beforeSend": function (xhr) {
+                    xhr.setRequestHeader('authorization', el.token);
+                },
+                error: function (xhr, error, thrown) {
+                    console.log(xhr)
+                    if (xhr.status == '403') {
+                        el.logout()
+                        if (typeof el.f_error == 'function') {
+                            el.f_error(xhr)
+                        }
+
+                    }
+                },
+
+            }
+        } catch (e) {
+
+            throw e
+        }
+
+    }
+    this.datatable_agr_AJAX = async function (data) {
+        let el = this
+        if (!el.resource) {
+            throw new Error('Resource not selected')
+            return
+        }
+        try {
+            return {
+                url: el.furi + el.resource + '/dt_agr/',
+                type: "POST",
+                data:{},
                 "dataType": 'json',
                 "beforeSend": function (xhr) {
                     xhr.setRequestHeader('authorization', el.token);
